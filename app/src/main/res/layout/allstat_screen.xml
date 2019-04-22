@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+<androidx.constraintlayout.widget.ConstraintLayout
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+    <ScrollView android:layout_width="match_parent" android:layout_height="match_parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginStart="8dp" android:layout_marginEnd="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.495"
+                android:id="@+id/scrollView2"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp" app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintVertical_bias="0.442"
+                style="@android:style/Widget.DeviceDefault.Light.ScrollView" app:layout_constraintTop_toTopOf="parent">
+        <LinearLayout android:layout_width="match_parent"
+                      android:layout_height="match_parent"
+                      android:orientation="vertical"
+                      android:gravity="center_horizontal">
+            <com.github.mikephil.charting.charts.PieChart
+                    android:id="@+id/placeholder_chart"
+                    android:layout_height="400dp"
+                    android:layout_width="400dp">
+            </com.github.mikephil.charting.charts.PieChart>
+        </LinearLayout>
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

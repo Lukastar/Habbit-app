@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#008577</color>
+    <color name="colorPrimaryDark">#527a7a</color>
+    <color name="colorAccent">#D81B60</color>
+    <color name="app_bar_color">#c2d6d6</color>
+
+    <array name="picker_colors">
+        <item>#ff4d4d</item>
+        <item>#ffb84d</item>
+        <item>#ffe066</item>
+        <item>#cc9966</item>
+        <item>#66cc66</item>
+        <item>#4dffc3</item>
+        <item>#3399ff</item>
+        <item>#944dff</item>
+        <item>#ff80ff</item>
+
+
+    </array>
+</resources>
+
