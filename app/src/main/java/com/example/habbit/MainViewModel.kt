@@ -14,6 +14,8 @@ class MainViewModel (
     val dataBase: HabitDatabase,
     application: Application): AndroidViewModel(application){
 
+    var habitList : LiveData<List<HabitBase>> = dataSourceHabit.selectAllHabit()
+
     private val _currentDay = MutableLiveData<String>()
     val currentDay : LiveData<String>
         get() = _currentDay

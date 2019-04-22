@@ -1,6 +1,8 @@
 package com.example.habbit
 
+import androidx.lifecycle.LiveData
 import androidx.room.*
+import java.util.ArrayList
 
 @Dao
 
@@ -16,5 +18,5 @@ interface HabitDAO {
     fun deleteHabit(habitData: HabitBase)
 
     @Query("select * from habitData")
-    fun selectAllHabit(): List<HabitBase>
+    fun selectAllHabit(): LiveData<List<HabitBase>>
 }

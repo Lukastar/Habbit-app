@@ -33,7 +33,6 @@ class MainScreen: Fragment(){
 
     private lateinit var binding: MainScreenBinding
     private lateinit var mainViewModel: MainViewModel
-    private lateinit var myAdapter: MainAdapter
     private lateinit var linearLayoutManager: LinearLayoutManager
     private lateinit var recyclerView: RecyclerView
 
@@ -48,23 +47,20 @@ class MainScreen: Fragment(){
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        //val binding: MainScreenBinding = DataBindingUtil.inflate(inflater, R.layout.main_screen, container, false)
         binding = DataBindingUtil.inflate(inflater, R.layout.main_screen, container, false)
 
-        var habitList:List<HabitBase>? = ArrayList<HabitBase>()
         val application = requireNotNull(this.activity).application
         val base = HabitDatabase.getInstance(application)
         val dataSourceHabit = base!!.habitDAO
         val dataSourceDay = base!!.dayDAO
         linearLayoutManager = LinearLayoutManager(context)
-        myAdapter = MainAdapter(habitList)
-        myAdapter.habitList = base.habitDAO.selectAllHabit()
+
 
         recyclerView = binding.mainRecycler.apply {
             setHasFixedSize(true)
             layoutManager = linearLayoutManager
-            adapter = myAdapter
         }
+
 
         val itemDecor = DividerItemDecoration(recyclerView.context, linearLayoutManager.orientation)
         itemDecor.setOrientation(1)
@@ -74,6 +70,9 @@ class MainScreen: Fragment(){
         mainViewModel = ViewModelProviders.of(this, mainViewModelFactory).get(MainViewModel::class.java)
         binding.mainViewModel = mainViewModel
 
+        mainViewModel.habitList.observe(this, Observer { newList ->
+            recyclerView.adapter = MainAdapter(newList)
+        })
         mainViewModel.currentDay.observe(this, Observer { newDay ->
             binding.dateText.text = newDay
         })
@@ -86,7 +85,6 @@ class MainScreen: Fragment(){
         super.onCreateOptionsMenu(menu, inflater)
         inflater.inflate(R.menu.overflow_menu, menu)
         inflater.inflate(R.menu.actionbar_menu, menu)
-        //var mainColor = ColorDrawable(Color.BLUE)
         activity?.custom_toolbar?.setBackgroundColor(ContextCompat.getColor(context!!,R.color.app_bar_color))
         //(activity as AppCompatActivity).setSupportActionBar(custom_toolbar)
         //(activity as AppCompatActivity).supportActionBar?.setBackgroundDrawable(mainColor)
@@ -102,7 +100,6 @@ class MainScreen: Fragment(){
             val application = requireNotNull(this.activity).application
             mDialogView.button.setOnClickListener {
                 mainViewModel.deleteAll()
-                myAdapter.notifyDataSetChanged()
                 mAlertDialog.dismiss()
             }
             mDialogView.button2.setOnClickListener {
@@ -117,7 +114,6 @@ class MainScreen: Fragment(){
 
     override fun onResume() {
         super.onResume()
-        myAdapter.notifyDataSetChanged()
     }
 }
 
