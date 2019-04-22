@@ -6,9 +6,11 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.habbit.databinding.HabitItemBinding
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.MutableLiveData
 import kotlinx.android.synthetic.main.habit_item.view.*
+import java.util.ArrayList
 
-class MainAdapter(var habitList:List<HabitBase>? = ArrayList<HabitBase>()): RecyclerView.Adapter<MainAdapter.MainViewHolder>(){
+class MainAdapter(val habitList: List<HabitBase>): RecyclerView.Adapter<MainAdapter.MainViewHolder>(){
 
     private lateinit var binding: HabitItemBinding
 
@@ -17,19 +19,19 @@ class MainAdapter(var habitList:List<HabitBase>? = ArrayList<HabitBase>()): Recy
         val view = LayoutInflater.from(parent.context).inflate(layout, parent, false)
         //val layoutInflater = LayoutInflater.from(parent.context)
         //binding = DataBindingUtil.inflate(layoutInflater, layout, parent, false)
-        return MainViewHolder(view, habitList!!)
+        return MainViewHolder(view)
     }
 
 
     override fun onBindViewHolder(holder: MainAdapter.MainViewHolder, position: Int) {
-        holder.onBindViews(position)
+        holder.name.text = habitList[position].name
+        holder.streak.text = habitList[position].streak.toString()
     }
 
-    inner class MainViewHolder(val view: View, val habitList:List<HabitBase>): RecyclerView.ViewHolder(view){
-        fun onBindViews(position: Int){
-            view.itemName.text = habitList.get(position).name
-            view.itemStreak.text = habitList.get(position).streak.toString()
-        }
+    class MainViewHolder(val view: View): RecyclerView.ViewHolder(view){
+            val name = view.itemName
+            val streak = view.itemStreak
+
     }
 
     override fun getItemCount(): Int {
