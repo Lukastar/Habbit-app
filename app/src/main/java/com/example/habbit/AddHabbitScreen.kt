@@ -28,7 +28,6 @@ class AddHabbitScreen: Fragment(), SpectrumPalette.OnColorSelectedListener {
 
     private lateinit var addHabbitViewModel: AddHabbitViewModel
 
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         //habitDatabase = HabitDatabase.getInstance(context!!)

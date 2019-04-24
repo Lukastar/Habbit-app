@@ -42,7 +42,6 @@ class MainScreen: Fragment(){
         //(activity as AppCompatActivity).setSupportActionBar(custom_toolbar)
         //(activity as AppCompatActivity).supportActionBar?.setBackgroundDrawable(mainColor)
         setHasOptionsMenu(true)
-
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -55,12 +54,10 @@ class MainScreen: Fragment(){
         val dataSourceDay = base!!.dayDAO
         linearLayoutManager = LinearLayoutManager(context)
 
-
         recyclerView = binding.mainRecycler.apply {
             setHasFixedSize(true)
             layoutManager = linearLayoutManager
         }
-
 
         val itemDecor = DividerItemDecoration(recyclerView.context, linearLayoutManager.orientation)
         itemDecor.setOrientation(1)
