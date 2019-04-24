@@ -1,6 +1,7 @@
 package com.example.habbit
 
 import android.app.Application
+import android.view.View
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -45,6 +46,21 @@ class MainViewModel (
             dataBase.clearAllTables();
         }
     }
+
+    fun onBoxChecking(id: Long) {
+        scope.launch{
+           onBoxCheckingUpdate(id)
+        }
+    }
+
+    private suspend fun onBoxCheckingUpdate(id: Long) {
+        withContext(Dispatchers.IO){
+            dataSourceHabit.updateChecked(id)
+            println("!!!!!!!!!!!!!!!")
+            println(id)
+        }
+    }
+
     private fun getDateVal(): String{
         val currentDate: Date = Calendar.getInstance().time
         val locale: Locale = Locale.getDefault()

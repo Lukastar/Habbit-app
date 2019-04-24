@@ -67,9 +67,20 @@ class MainScreen: Fragment(){
         mainViewModel = ViewModelProviders.of(this, mainViewModelFactory).get(MainViewModel::class.java)
         binding.mainViewModel = mainViewModel
 
+
         mainViewModel.habitList.observe(this, Observer { newList ->
             recyclerView.adapter = MainAdapter(newList)
         })
+
+        /**
+        mainViewModel.habitList.observe(this, Observer { newList ->
+            val mainAdapter = MainAdapter(newList) {position ->
+                mainViewModel.onBoxChecking(position.toLong())
+            }
+            recyclerView.adapter = mainAdapter
+        })
+        **/
+
         mainViewModel.currentDay.observe(this, Observer { newDay ->
             binding.dateText.text = newDay
         })

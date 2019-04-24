@@ -7,14 +7,18 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.habbit.databinding.HabitItemBinding
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProviders
 import kotlinx.android.synthetic.main.habit_item.view.*
 import java.util.ArrayList
 
 class MainAdapter(val habitList: List<HabitBase>): RecyclerView.Adapter<MainAdapter.MainViewHolder>(){
 
-    private lateinit var binding: HabitItemBinding
+    //move to ViewModel and change to LiveData
     private lateinit var itemStateArray : ArrayList<HabitBase>
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainAdapter.MainViewHolder {
         val layout = R.layout.habit_item
@@ -27,7 +31,13 @@ class MainAdapter(val habitList: List<HabitBase>): RecyclerView.Adapter<MainAdap
 
     override fun onBindViewHolder(holder: MainAdapter.MainViewHolder, position: Int) {
         holder.name.text = habitList[position].name
-        holder.streak.text = habitList[position].streak.toString()
+        if (habitList[position].tracking) {
+            holder.streak.text = habitList[position].streak.toString()
+        }
+        else {
+            holder.streak.text = "-"
+        }
+
         holder.box.setChecked(itemStateArray.contains(habitList[position]))
     }
 
@@ -37,7 +47,8 @@ class MainAdapter(val habitList: List<HabitBase>): RecyclerView.Adapter<MainAdap
         val box = view.itemCheck
 
         init {
-            view.setOnClickListener { box.isChecked = !box.isChecked }
+            //view.setOnClickListener ({ boxClick(position) })
+            view.setOnClickListener {box.isChecked = !box.isChecked}
             box.setOnCheckedChangeListener { buttonView, isChecked ->
                 val adapterItem = habitList[position]
                 if (isChecked){
@@ -49,10 +60,6 @@ class MainAdapter(val habitList: List<HabitBase>): RecyclerView.Adapter<MainAdap
                 }
             }
         }
-
-
-
-
     }
 
     override fun getItemCount(): Int {
