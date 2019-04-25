@@ -49,15 +49,33 @@ class MainViewModel (
 
     fun onBoxChecking(id: Long) {
         scope.launch{
-           onBoxCheckingUpdate(id)
+            onBoxCheckingUpdate(id)
         }
     }
 
     private suspend fun onBoxCheckingUpdate(id: Long) {
+        var listOfHabits : List<HabitBase> = dataSourceHabit.selectAll()
         withContext(Dispatchers.IO){
             dataSourceHabit.updateChecked(id)
-            println("!!!!!!!!!!!!!!!")
-            println(id)
+            println("?????????")
+            println("FLAGA: " + id.toString())
+            listOfHabits = dataSourceHabit.selectAll()
+            println(listOfHabits)
+
+        }
+    }
+
+    fun onBoxUnchecking(id: Long) {
+        scope.launch{
+            onBoxUncheckingUpdate(id)
+        }
+    }
+
+    private suspend fun onBoxUncheckingUpdate(id: Long) {
+        withContext(Dispatchers.IO){
+            dataSourceHabit.updateChecked(id)
+            println("?????????")
+            println("FLAGA: " + id.toString())
         }
     }
 

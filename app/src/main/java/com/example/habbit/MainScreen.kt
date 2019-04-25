@@ -17,17 +17,13 @@ import androidx.lifecycle.ViewModelProviders
 import com.example.habbit.databinding.MainScreenBinding
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
-import kotlinx.android.synthetic.*
 import kotlinx.android.synthetic.main.activity_main.*
-import java.text.SimpleDateFormat
-import java.util.*
-import kotlin.collections.ArrayList
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.clear_screen.view.*
-import kotlinx.android.synthetic.main.main_screen.*
+import android.widget.CompoundButton.OnCheckedChangeListener
 
 class MainScreen: Fragment(){
 
@@ -35,6 +31,7 @@ class MainScreen: Fragment(){
     private lateinit var mainViewModel: MainViewModel
     private lateinit var linearLayoutManager: LinearLayoutManager
     private lateinit var recyclerView: RecyclerView
+    var boxChecked : Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -67,9 +64,8 @@ class MainScreen: Fragment(){
         mainViewModel = ViewModelProviders.of(this, mainViewModelFactory).get(MainViewModel::class.java)
         binding.mainViewModel = mainViewModel
 
-
         mainViewModel.habitList.observe(this, Observer { newList ->
-            recyclerView.adapter = MainAdapter(newList)
+            recyclerView.adapter = MainAdapter(newList, this)
         })
 
         /**
@@ -118,6 +114,15 @@ class MainScreen: Fragment(){
         else{
             return NavigationUI.onNavDestinationSelected(item, view!!.findNavController())
                 || super.onOptionsItemSelected(item)}
+    }
+
+    fun checkingBox(id : Long) {
+        if (boxChecked) {
+            mainViewModel.onBoxChecking(id)
+        }
+        else {
+            //mainViewModel.onBoxUnchecking(id)
+        }
     }
 
     override fun onResume() {

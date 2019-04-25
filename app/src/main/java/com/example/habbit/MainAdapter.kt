@@ -14,7 +14,7 @@ import androidx.lifecycle.ViewModelProviders
 import kotlinx.android.synthetic.main.habit_item.view.*
 import java.util.ArrayList
 
-class MainAdapter(val habitList: List<HabitBase>): RecyclerView.Adapter<MainAdapter.MainViewHolder>(){
+class MainAdapter(val habitList: List<HabitBase>, val fragment: MainScreen): RecyclerView.Adapter<MainAdapter.MainViewHolder>(){
 
     //move to ViewModel and change to LiveData
     private lateinit var itemStateArray : ArrayList<HabitBase>
@@ -48,15 +48,20 @@ class MainAdapter(val habitList: List<HabitBase>): RecyclerView.Adapter<MainAdap
 
         init {
             //view.setOnClickListener ({ boxClick(position) })
-            view.setOnClickListener {box.isChecked = !box.isChecked}
+            //view.setOnClickListener {box.isChecked = !box.isChecked}
             box.setOnCheckedChangeListener { buttonView, isChecked ->
                 val adapterItem = habitList[position]
                 if (isChecked){
                     itemStateArray.add(adapterItem)
+                    fragment.boxChecked = true
+                    fragment.checkingBox(habitList[position].id!!.toLong())
+                    //add function for saving checkBox state
                 }
                 else
                 {
                     itemStateArray.remove(adapterItem)
+                    fragment.boxChecked = false
+                    fragment.checkingBox(habitList[position].id!!.toLong())
                 }
             }
         }
