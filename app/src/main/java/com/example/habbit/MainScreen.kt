@@ -121,8 +121,12 @@ class MainScreen: Fragment(){
             mainViewModel.onBoxChecking(id)
         }
         else {
-            //mainViewModel.onBoxUnchecking(id)
+            mainViewModel.onBoxUnchecking(id)
         }
+    }
+
+    fun getMask(id: Long){
+
     }
 
     override fun onResume() {

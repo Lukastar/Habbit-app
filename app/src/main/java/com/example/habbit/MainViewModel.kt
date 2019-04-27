@@ -57,11 +57,8 @@ class MainViewModel (
         var listOfHabits : List<HabitBase> = dataSourceHabit.selectAll()
         withContext(Dispatchers.IO){
             dataSourceHabit.updateChecked(id)
-            println("?????????")
-            println("FLAGA: " + id.toString())
             listOfHabits = dataSourceHabit.selectAll()
             println(listOfHabits)
-
         }
     }
 
@@ -73,9 +70,7 @@ class MainViewModel (
 
     private suspend fun onBoxUncheckingUpdate(id: Long) {
         withContext(Dispatchers.IO){
-            dataSourceHabit.updateChecked(id)
-            println("?????????")
-            println("FLAGA: " + id.toString())
+            dataSourceHabit.updateUnchecked(id)
         }
     }
 

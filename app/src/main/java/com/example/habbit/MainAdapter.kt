@@ -31,6 +31,11 @@ class MainAdapter(val habitList: List<HabitBase>, val fragment: MainScreen): Rec
 
     override fun onBindViewHolder(holder: MainAdapter.MainViewHolder, position: Int) {
         holder.name.text = habitList[position].name
+        //System.out.println(habitList[position].resetMask)
+        //System.out.println(habitList[position])
+        holder.box.setChecked(habitList[position].resetMask)
+        //System.out.println("Tutaj")
+        //System.out.println(holder.box.isChecked)
         if (habitList[position].tracking) {
             holder.streak.text = habitList[position].streak.toString()
         }
@@ -38,7 +43,7 @@ class MainAdapter(val habitList: List<HabitBase>, val fragment: MainScreen): Rec
             holder.streak.text = "-"
         }
 
-        holder.box.setChecked(itemStateArray.contains(habitList[position]))
+        //holder.box.setChecked(itemStateArray.contains(habitList[position]))
     }
 
     inner class MainViewHolder(val view: View): RecyclerView.ViewHolder(view){
@@ -49,20 +54,22 @@ class MainAdapter(val habitList: List<HabitBase>, val fragment: MainScreen): Rec
         init {
             //view.setOnClickListener ({ boxClick(position) })
             //view.setOnClickListener {box.isChecked = !box.isChecked}
+            //fragment.boxChecked = habitList[position].resetMask
             box.setOnCheckedChangeListener { buttonView, isChecked ->
                 val adapterItem = habitList[position]
-                if (isChecked){
+                if (buttonView.isPressed && isChecked){
                     itemStateArray.add(adapterItem)
                     fragment.boxChecked = true
                     fragment.checkingBox(habitList[position].id!!.toLong())
-                    //add function for saving checkBox state
+
                 }
-                else
+                else if(buttonView.isPressed && !isChecked)
                 {
                     itemStateArray.remove(adapterItem)
                     fragment.boxChecked = false
                     fragment.checkingBox(habitList[position].id!!.toLong())
                 }
+
             }
         }
     }
