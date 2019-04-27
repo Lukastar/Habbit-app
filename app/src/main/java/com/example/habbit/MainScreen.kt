@@ -59,7 +59,6 @@ class MainScreen: Fragment(){
         val itemDecor = DividerItemDecoration(recyclerView.context, linearLayoutManager.orientation)
         itemDecor.setOrientation(1)
         recyclerView.addItemDecoration(itemDecor)
-
         val mainViewModelFactory = MainViewModelFactory(dataSourceHabit, dataSourceDay, base, application)
         mainViewModel = ViewModelProviders.of(this, mainViewModelFactory).get(MainViewModel::class.java)
         binding.mainViewModel = mainViewModel

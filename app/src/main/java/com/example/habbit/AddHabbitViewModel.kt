@@ -1,6 +1,7 @@
 package com.example.habbit
 
 import android.app.Application
+import android.graphics.Color
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -10,7 +11,7 @@ class AddHabbitViewModel (
     val dataSource: HabitDAO,
     application: Application): AndroidViewModel(application){
 
-    var color: Int = 0
+    var color: Int = Color.parseColor("#008577")
 
     private val viewModelJob = Job()
 

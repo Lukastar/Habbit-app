@@ -31,11 +31,12 @@ class MainAdapter(val habitList: List<HabitBase>, val fragment: MainScreen): Rec
 
     override fun onBindViewHolder(holder: MainAdapter.MainViewHolder, position: Int) {
         holder.name.text = habitList[position].name
-        //System.out.println(habitList[position].resetMask)
-        //System.out.println(habitList[position])
+
         holder.box.setChecked(habitList[position].resetMask)
-        //System.out.println("Tutaj")
-        //System.out.println(holder.box.isChecked)
+        if (habitList[position].resetMask){
+            holder.name.setTextColor(habitList[position].color.toInt())
+        }
+
         if (habitList[position].tracking) {
             holder.streak.text = habitList[position].streak.toString()
         }

@@ -11,6 +11,6 @@
     <string name="button_ok">OK</string>
     <string name="app_bar_color">#19334d</string>
     <string name="date_placeholder">Current Date</string>
-    <string name="prompt_question">Do ya want to erase all yer data?</string>
-    <string name="button_noo">Nooo</string>
+    <string name="prompt_question">Erase all data?</string>
+    <string name="button_noo">Cancel</string>
 </resources>
