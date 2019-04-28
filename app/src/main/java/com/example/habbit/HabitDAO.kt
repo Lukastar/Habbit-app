@@ -32,4 +32,7 @@ interface HabitDAO {
 
     @Query("select * from habitData where id = :id")
     fun printLineFromBase(id: Long) : List<HabitBase>
+
+    @Query("delete from habitData where id = :id")
+    fun deleteFromBase(id: Long)
 }

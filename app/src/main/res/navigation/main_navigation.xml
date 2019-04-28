@@ -8,7 +8,9 @@
     <fragment android:id="@+id/mainScreen"
               android:name="com.example.habbit.MainScreen"
               android:label="Habbit"
-              tools:layout="@layout/main_screen"/>
+              tools:layout="@layout/main_screen">
+        <action android:id="@+id/action_mainScreen_to_itemScreen" app:destination="@id/itemScreen"/>
+    </fragment>
 
     <fragment android:id="@+id/aboutScreen"
               android:name="com.example.habbit.AboutScreen"
@@ -24,5 +26,8 @@
               android:label="Add habit"
               tools:layout="@layout/addhabbit_screen">
         <action android:id="@+id/action_addHabbitScreen_to_mainScreen" app:destination="@id/mainScreen"/>
+    </fragment>
+    <fragment android:id="@+id/itemScreen" android:name="com.example.habbit.ItemScreen" android:label="ItemScreen">
+        <action android:id="@+id/action_itemScreen_to_mainScreen" app:destination="@id/mainScreen"/>
     </fragment>
 </navigation>

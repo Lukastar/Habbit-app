@@ -24,6 +24,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.clear_screen.view.*
 import android.widget.CompoundButton.OnCheckedChangeListener
+import android.widget.Toast
 
 class MainScreen: Fragment(){
 
@@ -67,14 +68,6 @@ class MainScreen: Fragment(){
             recyclerView.adapter = MainAdapter(newList, this)
         })
 
-        /**
-        mainViewModel.habitList.observe(this, Observer { newList ->
-            val mainAdapter = MainAdapter(newList) {position ->
-                mainViewModel.onBoxChecking(position.toLong())
-            }
-            recyclerView.adapter = mainAdapter
-        })
-        **/
 
         mainViewModel.currentDay.observe(this, Observer { newDay ->
             binding.dateText.text = newDay
@@ -92,6 +85,25 @@ class MainScreen: Fragment(){
         //(activity as AppCompatActivity).setSupportActionBar(custom_toolbar)
         //(activity as AppCompatActivity).supportActionBar?.setBackgroundDrawable(mainColor)
         //activity?.actionBar?.setBackgroundDrawable(mainColor)
+    }
+
+    //override fun onPrepareOptionsMenu(menu: Menu) {
+        //super.onPrepareOptionsMenu(menu)
+        //menu.findItem(R.id.editHabbitScreen).setVisible(true)
+        //menu.findItem(R.id.deleteHabbit).setVisible(true)
+        //menu.findItem(R.id.addHabbitScreen).setVisible(false)
+    //}
+
+    fun onItemSelect(id: Long, color: Int, name: String, tracking: Boolean) {
+        val itemFragment = ItemScreen()
+        val bundle = Bundle()
+        bundle.putLong("id", id)
+        bundle.putInt("color", color)
+        bundle.putString("name", name)
+        bundle.putBoolean("tracking", tracking)
+        itemFragment.arguments = bundle
+        view?.findNavController()?.navigate(R.id.action_mainScreen_to_itemScreen, bundle)
+
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -122,10 +134,6 @@ class MainScreen: Fragment(){
         else {
             mainViewModel.onBoxUnchecking(id)
         }
-    }
-
-    fun getMask(id: Long){
-
     }
 
     override fun onResume() {
