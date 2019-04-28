@@ -35,4 +35,8 @@ interface HabitDAO {
 
     @Query("delete from habitData where id = :id")
     fun deleteFromBase(id: Long)
+
+    @Query("update habitData set name = :name, tracking = :tracking, color = :color where id = :id")
+    fun updateItem(id: Long, name: String, tracking: Boolean, color: String)
+
 }

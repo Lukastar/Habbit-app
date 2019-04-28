@@ -23,6 +23,7 @@ class ItemScreen: Fragment(){
     private var name: String? = ""
     private var color: Int? = 0
     private var tracking: Boolean? = false
+    private lateinit var bundle : Bundle
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,10 +37,14 @@ class ItemScreen: Fragment(){
         val base = HabitDatabase.getInstance(application)
         val dataSourceHabit = base!!.habitDAO
 
+        val editFragment = EditHabbitScreen()
+        bundle = Bundle()
+        bundle.putAll(arguments)
+        editFragment.arguments = bundle
+
         id = arguments?.getLong("id")
         name = arguments?.getString("name")
         color = arguments?.getInt("color")
-        tracking = arguments?.getBoolean("tracking")
 
         val itemScreenViewModelFactory = ItemScreenViewModelFactory(dataSourceHabit, application)
         itemScreenViewModel = ViewModelProviders.of(this, itemScreenViewModelFactory).get(ItemScreenViewModel::class.java)
@@ -68,6 +73,11 @@ class ItemScreen: Fragment(){
         if (item.title.isNullOrEmpty()){
             return NavigationUI.onNavDestinationSelected(item, view!!.findNavController())
                     || super.onOptionsItemSelected(item)
+        }
+
+        else if (item.title.equals("Edit")){
+            view?.findNavController()?.navigate(R.id.action_itemScreen_to_editHabbitScreen2, bundle)
+            return false
         }
 
         else if(item.title.equals("Delete")){

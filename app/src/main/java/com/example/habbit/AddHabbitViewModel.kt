@@ -33,4 +33,16 @@ class AddHabbitViewModel (
             println(dataSource.selectAllHabit())
         }
     }
+
+    fun updateHabitItem(id: Long, name: String, tracking: Boolean) {
+        scope.launch {
+            update(id, name, tracking)
+        }
+    }
+
+    private suspend fun update(id: Long, name: String, tracking: Boolean) {
+        withContext(Dispatchers.IO) {
+            dataSource.updateItem(id, name, tracking, color.toString())
+        }
+    }
 }

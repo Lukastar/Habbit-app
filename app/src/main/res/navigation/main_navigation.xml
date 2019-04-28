@@ -28,6 +28,12 @@
         <action android:id="@+id/action_addHabbitScreen_to_mainScreen" app:destination="@id/mainScreen"/>
     </fragment>
     <fragment android:id="@+id/itemScreen" android:name="com.example.habbit.ItemScreen" android:label="ItemScreen">
-        <action android:id="@+id/action_itemScreen_to_mainScreen" app:destination="@id/mainScreen"/>
+        <action android:id="@+id/action_itemScreen_to_mainScreen" app:destination="@id/mainScreen"
+                app:popUpTo="@+id/mainScreen" app:popUpToInclusive="true"/>
+        <action android:id="@+id/action_itemScreen_to_editHabbitScreen2" app:destination="@id/editHabbitScreen2"/>
+    </fragment>
+    <fragment android:id="@+id/editHabbitScreen2" android:name="com.example.habbit.EditHabbitScreen"
+              android:label="Edit">
+        <action android:id="@+id/action_editHabbitScreen2_to_mainScreen" app:destination="@id/mainScreen"/>
     </fragment>
 </navigation>
