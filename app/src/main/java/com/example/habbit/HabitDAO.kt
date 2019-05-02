@@ -39,4 +39,10 @@ interface HabitDAO {
     @Query("update habitData set name = :name, tracking = :tracking, color = :color where id = :id")
     fun updateItem(id: Long, name: String, tracking: Boolean, color: String)
 
+    @Query("update habitData set reset_mask = 0 where reset_mask=1")
+    fun updateMaskNewDay()
+
+    @Query("update habitData set streak = 0 where reset_mask=0")
+    fun updateStreakNewDay()
+
 }

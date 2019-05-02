@@ -17,6 +17,7 @@ import java.util.ArrayList
 
 class MainAdapter(val habitList: List<HabitBase>, val fragment: MainScreen): RecyclerView.Adapter<MainAdapter.MainViewHolder>(){
 
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainAdapter.MainViewHolder {
         val layout = R.layout.habit_item
         val view = LayoutInflater.from(parent.context).inflate(layout, parent, false)

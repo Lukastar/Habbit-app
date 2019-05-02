@@ -1,5 +1,6 @@
 package com.example.habbit
 
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
@@ -8,7 +9,6 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
 import androidx.databinding.DataBindingUtil
 import com.example.habbit.databinding.ActivityMainBinding
-
 
 class MainActivity : AppCompatActivity() {
 

@@ -74,11 +74,23 @@ class MainViewModel (
         }
     }
 
+    fun dayChanged() {
+        scope.launch{
+            _dayChanged()
+        }
+    }
+
+    private suspend fun _dayChanged() {
+        withContext(Dispatchers.IO) {
+            dataSourceHabit.updateStreakNewDay()
+            dataSourceHabit.updateMaskNewDay()
+        }
+    }
+
     private fun getDateVal(): String{
         val currentDate: Date = Calendar.getInstance().time
         val locale: Locale = Locale.getDefault()
         val format: String = "EEE, dd MMM yyyy"
         return SimpleDateFormat(format,locale).format(currentDate)
     }
-
 }

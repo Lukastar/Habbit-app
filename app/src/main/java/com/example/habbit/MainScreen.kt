@@ -1,6 +1,8 @@
 package com.example.habbit
 
 import android.animation.Animator
+import android.content.Context
+import android.content.SharedPreferences
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
@@ -32,6 +34,7 @@ class MainScreen: Fragment(){
     private lateinit var mainViewModel: MainViewModel
     private lateinit var linearLayoutManager: LinearLayoutManager
     private lateinit var recyclerView: RecyclerView
+    private lateinit var sharedPreference : SharedPreferences
     var boxChecked : Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -46,6 +49,8 @@ class MainScreen: Fragment(){
                               savedInstanceState: Bundle?): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.main_screen, container, false)
 
+        val firstRun = activity?.getPreferences(Context.MODE_PRIVATE)
+        sharedPreference = activity!!.getPreferences(Context.MODE_PRIVATE)
         val application = requireNotNull(this.activity).application
         val base = HabitDatabase.getInstance(application)
         val dataSourceHabit = base!!.habitDAO
@@ -64,13 +69,22 @@ class MainScreen: Fragment(){
         mainViewModel = ViewModelProviders.of(this, mainViewModelFactory).get(MainViewModel::class.java)
         binding.mainViewModel = mainViewModel
 
+        //check if first launch
+        if (firstRun!!.getBoolean("first_run", true)) {
+            firstRun.edit().putBoolean("first_run", false).apply()
+            sharedPreference!!.edit().putString("lastDate", mainViewModel.currentDay.value.toString()).apply()
+        }
+
         mainViewModel.habitList.observe(this, Observer { newList ->
             recyclerView.adapter = MainAdapter(newList, this)
         })
 
-
         mainViewModel.currentDay.observe(this, Observer { newDay ->
             binding.dateText.text = newDay
+            if (!newDay.equals(sharedPreference?.getString("lastDate", "null"))){
+                mainViewModel.dayChanged()
+                sharedPreference!!.edit().putString("lastDate", newDay).apply()
+            }
         })
 
         binding.setLifecycleOwner(this)
@@ -115,6 +129,8 @@ class MainScreen: Fragment(){
             val application = requireNotNull(this.activity).application
             mDialogView.button.setOnClickListener {
                 mainViewModel.deleteAll()
+                sharedPreference.edit().remove("lastDay")
+                sharedPreference!!.edit().putString("lastDate", binding.dateText.text.toString()).apply()
                 mAlertDialog.dismiss()
             }
             mDialogView.button2.setOnClickListener {
