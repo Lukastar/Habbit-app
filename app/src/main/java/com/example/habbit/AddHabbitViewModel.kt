@@ -30,7 +30,7 @@ class AddHabbitViewModel (
     private suspend fun insert(name: String, track: Boolean) {
         withContext(Dispatchers.IO) {
             dataSource.insertHabit(HabitBase(null,name,track,color.toString(),0,false))
-            println(dataSource.selectAllHabit())
+            println(dataSource.selectAll())
         }
     }
 

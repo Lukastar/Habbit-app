@@ -5,6 +5,8 @@ import android.view.View
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.sqlite.db.SimpleSQLiteQuery
+import androidx.sqlite.db.SupportSQLiteDatabase
 import kotlinx.coroutines.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -15,16 +17,17 @@ class MainViewModel (
     val dataBase: HabitDatabase,
     application: Application): AndroidViewModel(application){
 
+    private lateinit var writableCurrentDay: String
     var habitList : LiveData<List<HabitBase>> = dataSourceHabit.selectAllHabit()
-
     private val _currentDay = MutableLiveData<String>()
     val currentDay : LiveData<String>
         get() = _currentDay
 
     init {
         _currentDay.value = getDateVal()
+        writableCurrentDay = _currentDay.value.toString().substring(5)
+        println(writableCurrentDay)
     }
-
     private val viewModelJob = Job()
 
     override fun onCleared() {
@@ -43,7 +46,10 @@ class MainViewModel (
 
     private suspend fun delete(){
         withContext(Dispatchers.IO){
-            dataBase.clearAllTables();
+            dataBase.clearAllTables()
+            dataBase.openHelper.writableDatabase.execSQL("update sqlite_sequence set seq=0 where name='habitData'")
+            dataBase.openHelper.writableDatabase.query("update sqlite_sequence set seq=0 where name='habitData'")
+            dataBase.query(SimpleSQLiteQuery("update sqlite_sequence set seq=(select MAX(id) from habitData) where name='habitData'"))
         }
     }
 
@@ -54,11 +60,9 @@ class MainViewModel (
     }
 
     private suspend fun onBoxCheckingUpdate(id: Long) {
-        var listOfHabits : List<HabitBase> = dataSourceHabit.selectAll()
         withContext(Dispatchers.IO){
             dataSourceHabit.updateChecked(id)
-            listOfHabits = dataSourceHabit.selectAll()
-            println(listOfHabits)
+            dataSourceDay.insertDay(DayBase(null, id, writableCurrentDay))
         }
     }
 
@@ -71,6 +75,7 @@ class MainViewModel (
     private suspend fun onBoxUncheckingUpdate(id: Long) {
         withContext(Dispatchers.IO){
             dataSourceHabit.updateUnchecked(id)
+            dataSourceDay.deleteFromDayBase(id, writableCurrentDay)
         }
     }
 

@@ -44,5 +44,4 @@ interface HabitDAO {
 
     @Query("update habitData set streak = 0 where reset_mask=0")
     fun updateStreakNewDay()
-
 }

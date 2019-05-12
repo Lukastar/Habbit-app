@@ -1,9 +1,6 @@
 package com.example.habbit
 
-import androidx.room.Dao
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.Update
+import androidx.room.*
 
 @Dao
 
@@ -17,5 +14,8 @@ interface DayDAO {
 
     @Delete
     fun deleteDay(dayData: DayBase)
+
+    @Query("delete from dayData where habit_id = :id and day like :day")
+    fun deleteFromDayBase(id: Long, day: String)
 }
 
