@@ -62,9 +62,9 @@ class MainScreen: Fragment(){
             layoutManager = linearLayoutManager
         }
 
-        val itemDecor = DividerItemDecoration(recyclerView.context, linearLayoutManager.orientation)
-        itemDecor.setOrientation(1)
-        recyclerView.addItemDecoration(itemDecor)
+        //val itemDecor = DividerItemDecoration(recyclerView.context, linearLayoutManager.orientation)
+        //itemDecor.setOrientation(1)
+        //recyclerView.addItemDecoration(itemDecor)
         val mainViewModelFactory = MainViewModelFactory(dataSourceHabit, dataSourceDay, base, application)
         mainViewModel = ViewModelProviders.of(this, mainViewModelFactory).get(MainViewModel::class.java)
         binding.mainViewModel = mainViewModel
@@ -86,7 +86,6 @@ class MainScreen: Fragment(){
                 sharedPreference!!.edit().putString("lastDate", newDay).apply()
             }
         })
-
         binding.setLifecycleOwner(this)
         return binding.root
     }
