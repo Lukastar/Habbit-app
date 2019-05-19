@@ -2,6 +2,10 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable name="allStatViewModel"
+                  type="com.example.habbit.AllStatViewModel"/>
+    </data>
 <androidx.constraintlayout.widget.ConstraintLayout
               android:orientation="vertical"
               android:layout_width="match_parent"
