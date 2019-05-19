@@ -55,6 +55,7 @@ class MainScreen: Fragment(){
         val base = HabitDatabase.getInstance(application)
         val dataSourceHabit = base!!.habitDAO
         val dataSourceDay = base!!.dayDAO
+
         linearLayoutManager = LinearLayoutManager(context)
 
         recyclerView = binding.mainRecycler.apply {
@@ -86,6 +87,7 @@ class MainScreen: Fragment(){
                 sharedPreference!!.edit().putString("lastDate", newDay).apply()
             }
         })
+
         binding.setLifecycleOwner(this)
         return binding.root
     }

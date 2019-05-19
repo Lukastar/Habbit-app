@@ -53,10 +53,10 @@ class MainAdapter(val habitList: List<HabitBase>, val fragment: MainScreen): Rec
             box.setOnCheckedChangeListener { buttonView, isChecked ->
                 if (buttonView.isPressed){
                     fragment.boxChecked = isChecked
-                    fragment.checkingBox(habitList[position].id!!.toLong())
+                    fragment.checkingBox(habitList[position].habitId!!.toLong())
                 }
             }
-            name.setOnClickListener {fragment.onItemSelect(habitList[position].id!!.toLong(),
+            name.setOnClickListener {fragment.onItemSelect(habitList[position].habitId!!.toLong(),
                 habitList[position].color.toInt(), habitList[position].name, habitList[position].tracking)}
         }
     }

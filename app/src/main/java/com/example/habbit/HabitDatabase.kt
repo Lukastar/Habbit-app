@@ -5,11 +5,12 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 
-@Database(entities = [HabitBase::class, DayBase::class], version = 1)
+@Database(entities = [HabitBase::class, DayBase::class, HabitJoinDay::class], version = 2)
 
 abstract class HabitDatabase: RoomDatabase(){
     abstract val dayDAO: DayDAO
     abstract val habitDAO: HabitDAO
+    abstract val joinedDAO: HabitJoinDayDAO
 
     companion object {
 

@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "habitData")
 
-data class HabitBase(@PrimaryKey(autoGenerate = true) var id: Long?,
+data class HabitBase(@PrimaryKey(autoGenerate = true) var habitId: Long?,
                      @ColumnInfo(name = "name") var name: String,
                      @ColumnInfo(name = "tracking") var tracking: Boolean,
                      @ColumnInfo(name = "color") var color: String,

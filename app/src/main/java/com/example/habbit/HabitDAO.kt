@@ -24,19 +24,19 @@ interface HabitDAO {
     @Query("select * from habitData")
     fun selectAll(): List<HabitBase>
 
-    @Query("update habitData set streak = streak+1, reset_mask = 1 where id = :id")
+    @Query("update habitData set streak = streak+1, reset_mask = 1 where habitId = :id")
     fun updateChecked(id: Long)
 
-    @Query("update habitData set streak = streak-1, reset_mask = 0 where id = :id")
+    @Query("update habitData set streak = streak-1, reset_mask = 0 where habitId = :id")
     fun updateUnchecked(id: Long)
 
-    @Query("select * from habitData where id = :id")
+    @Query("select * from habitData where habitId = :id")
     fun printLineFromBase(id: Long) : List<HabitBase>
 
-    @Query("delete from habitData where id = :id")
+    @Query("delete from habitData where habitId = :id")
     fun deleteFromBase(id: Long)
 
-    @Query("update habitData set name = :name, tracking = :tracking, color = :color where id = :id")
+    @Query("update habitData set name = :name, tracking = :tracking, color = :color where habitId = :id")
     fun updateItem(id: Long, name: String, tracking: Boolean, color: String)
 
     @Query("update habitData set reset_mask = 0 where reset_mask=1")
@@ -44,4 +44,5 @@ interface HabitDAO {
 
     @Query("update habitData set streak = 0 where reset_mask=0")
     fun updateStreakNewDay()
+
 }

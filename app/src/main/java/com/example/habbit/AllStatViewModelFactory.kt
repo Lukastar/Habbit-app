@@ -6,14 +6,13 @@ import androidx.lifecycle.ViewModelProvider
 import java.lang.IllegalArgumentException
 
 class AllStatViewModelFactory(
-    private val dataSourceHabit: HabitDAO,
-    private val dataSourceDay: DayDAO,
+    private val dataSourceJoined: HabitJoinDayDAO,
     private val dataBase: HabitDatabase,
     private val application: Application): ViewModelProvider.Factory{
 
     override fun <T: ViewModel?> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(AllStatViewModel::class.java)){
-            return AllStatViewModel(dataSourceHabit, dataSourceDay, dataBase, application) as T
+            return AllStatViewModel(dataSourceJoined, dataBase, application) as T
         }
         throw IllegalArgumentException("Unknown ViewModel Class")
     }

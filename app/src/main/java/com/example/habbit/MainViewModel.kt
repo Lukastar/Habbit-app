@@ -28,6 +28,7 @@ class MainViewModel (
         writableCurrentDay = _currentDay.value.toString().substring(5)
         println(writableCurrentDay)
     }
+
     private val viewModelJob = Job()
 
     override fun onCleared() {
@@ -47,9 +48,6 @@ class MainViewModel (
     private suspend fun delete(){
         withContext(Dispatchers.IO){
             dataBase.clearAllTables()
-            dataBase.openHelper.writableDatabase.execSQL("update sqlite_sequence set seq=0 where name='habitData'")
-            dataBase.openHelper.writableDatabase.query("update sqlite_sequence set seq=0 where name='habitData'")
-            dataBase.query(SimpleSQLiteQuery("update sqlite_sequence set seq=(select MAX(id) from habitData) where name='habitData'"))
         }
     }
 
