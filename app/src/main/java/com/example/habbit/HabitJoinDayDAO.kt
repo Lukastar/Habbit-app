@@ -8,6 +8,6 @@ import androidx.room.*
 
 interface HabitJoinDayDAO {
 
-    @Query("select habitData.habitId, dayData.dayId, name, color, streak, day from habitData inner join dayData on habitData.habitId=dayData.habit_id order by day")
+    @Query("select habitData.habitId, dayData.dayId, name, color, streak, day from habitData inner join dayData on habitData.habitId=dayData.habit_id")
     fun getJoinedTables(): MutableList<HabitJoinDay>
 }

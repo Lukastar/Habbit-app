@@ -25,7 +25,7 @@ class MainViewModel (
 
     init {
         _currentDay.value = getDateVal()
-        writableCurrentDay = _currentDay.value.toString().substring(5)
+        writableCurrentDay = _currentDay.value.toString().substring(4)
         println(writableCurrentDay)
     }
 
@@ -93,7 +93,7 @@ class MainViewModel (
     private fun getDateVal(): String{
         val currentDate: Date = Calendar.getInstance().time
         val locale: Locale = Locale.getDefault()
-        val format: String = "EEE, dd MMM yyyy"
+        val format: String = "EEE dd.MM.yyyy"
         return SimpleDateFormat(format,locale).format(currentDate)
     }
 }

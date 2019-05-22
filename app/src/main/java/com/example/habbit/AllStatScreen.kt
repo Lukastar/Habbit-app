@@ -3,6 +3,7 @@ package com.example.habbit
 import android.graphics.Color
 import android.os.Bundle
 import android.view.*
+import androidx.core.graphics.toColor
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
@@ -13,6 +14,8 @@ import com.github.mikephil.charting.utils.ColorTemplate
 import com.github.mikephil.charting.components.Legend
 import kotlinx.android.synthetic.main.activity_main.*
 import androidx.lifecycle.Observer
+import com.github.mikephil.charting.charts.LineChart
+import com.github.mikephil.charting.interfaces.datasets.ILineDataSet
 import java.util.*
 
 class AllStatScreen: Fragment(){
@@ -37,23 +40,24 @@ class AllStatScreen: Fragment(){
         binding.allStatViewModel = allStatViewModel
 
         val pieChart: PieChart = binding.placeholderChart
+        val lineChart: LineChart = binding.allBarchart
         pieChart.setUsePercentValues(true)
-
-        /**allStatViewModel.habitCounted.observe(this, Observer { _ ->
-
-            var howManyDaysForChart = allStatViewModel.howManyDays.toFloat()
-            var nameForChart = allStatViewModel.habitName
-            println("GGGGGGGGGGGGGGG")
-            println(howManyDaysForChart)
-
-
-            chartArray.add(PieEntry(howManyDaysForChart, nameForChart))
-            println(chartArray)
-        })**/
 
         val datSet: PieDataSet = PieDataSet(allStatViewModel.chartArray, "Habits")
         datSet.setColors(allStatViewModel.colorArray)
         val pieDat: PieData = PieData(datSet)
+
+        val monthDataSet: LineDataSet = LineDataSet(allStatViewModel.lineArray, "Monthly")
+        monthDataSet.mode = LineDataSet.Mode.CUBIC_BEZIER
+        monthDataSet.fillAlpha = 500
+        monthDataSet.setDrawFilled(true)
+        monthDataSet.fillColor = context!!.getColor(R.color.app_bar_color)
+        monthDataSet.color = context!!.getColor(R.color.app_bar_color)
+        monthDataSet.setDrawCircles(false)
+        monthDataSet.setDrawValues(false)
+        val monthsSets : ArrayList<ILineDataSet> = ArrayList<ILineDataSet>()
+        monthsSets.add(monthDataSet)
+        val lineDat: LineData = LineData(monthDataSet)
 
         pieDat.setValueTextSize(25f)
         pieChart.setEntryLabelTextSize(15f)
@@ -64,6 +68,14 @@ class AllStatScreen: Fragment(){
         pieChart.data = pieDat
         pieChart.description.isEnabled = false
         pieChart.invalidate()
+
+        lineChart.data = lineDat
+        lineChart.axisLeft.setDrawGridLines(false)
+        lineChart.axisRight.setDrawGridLines(false)
+        lineChart.setDrawGridBackground(false)
+        lineChart.legend.isEnabled = false
+        lineChart.description.isEnabled = false
+        lineChart.invalidate()
 
         return binding.root
     }
