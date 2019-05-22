@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#008577</color>
-    <color name="colorPrimaryDark">#527a7a</color>
-    <color name="colorAccent">#D81B60</color>
-    <color name="app_bar_color">#9CD1D8</color>
+    <color name="colorPrimary">#E05E0F</color>
     <color name="item_color">#F1F1F1</color>
-    <color name="date_color">#EBEBEB</color>
-    <color name="dark_gray">#656565</color>
+    <color name="colorAccent">#41BB16</color>
+    <color name="colorPrimaryDark">#FF6C00</color>
+    <color name="app_bar_color">#AEFF6C00</color>
+    <color name="date_color">#E0E0E0</color>
+    <color name="dark_gray">#242424</color>
     <color name="streak_color">#ECFFE1</color>
+    <color name="black">#000000</color>
 
     <array name="picker_colors">
         <item>#FF3030</item>
