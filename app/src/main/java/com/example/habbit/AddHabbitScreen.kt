@@ -60,8 +60,6 @@ class AddHabbitScreen: Fragment(), SpectrumPalette.OnColorSelectedListener {
     override fun onColorSelected(@ColorInt color: Int) {
         activity?.custom_toolbar?.setBackgroundColor(color)
         addHabbitViewModel.color = color
-        System.out.println(color)
-        //this.color = color
-        //Toast.makeText(context, Integer.toHexString(color), Toast.LENGTH_LONG).show()
+        activity?.window!!.statusBarColor = color
     }
 }

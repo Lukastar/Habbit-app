@@ -3,9 +3,9 @@
     <color name="colorPrimary">#E05E0F</color>
     <color name="item_color">#F1F1F1</color>
     <color name="colorAccent">#41BB16</color>
-    <color name="colorPrimaryDark">#FF6C00</color>
+    <color name="colorPrimaryDark">#E6FF5500</color>
     <color name="app_bar_color">#AEFF6C00</color>
-    <color name="date_color">#E0E0E0</color>
+    <color name="date_color">#FFFFFF</color>
     <color name="dark_gray">#242424</color>
     <color name="streak_color">#ECFFE1</color>
     <color name="black">#000000</color>

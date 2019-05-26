@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.annotation.ColorInt
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
@@ -83,6 +84,7 @@ class EditHabbitScreen: Fragment(), SpectrumPalette.OnColorSelectedListener {
     override fun onColorSelected(@ColorInt color: Int) {
         activity?.custom_toolbar?.setBackgroundColor(color)
         editHabbitViewModel.color = color
+        activity?.window!!.statusBarColor = color
         //this.color = color
         //Toast.makeText(context, Integer.toHexString(color), Toast.LENGTH_LONG).show()
     }

@@ -55,7 +55,8 @@ class MainScreen: Fragment(){
         val base = HabitDatabase.getInstance(application)
         val dataSourceHabit = base!!.habitDAO
         val dataSourceDay = base!!.dayDAO
-
+        activity?.custom_toolbar?.setBackgroundColor(ContextCompat.getColor(context!!,R.color.app_bar_color))
+        activity?.window!!.statusBarColor = ContextCompat.getColor(context!!, R.color.colorPrimaryDark)
         linearLayoutManager = LinearLayoutManager(context)
 
         recyclerView = binding.mainRecycler.apply {
@@ -96,7 +97,7 @@ class MainScreen: Fragment(){
         super.onCreateOptionsMenu(menu, inflater)
         inflater.inflate(R.menu.overflow_menu, menu)
         inflater.inflate(R.menu.actionbar_menu, menu)
-        activity?.custom_toolbar?.setBackgroundColor(ContextCompat.getColor(context!!,R.color.app_bar_color))
+
         //(activity as AppCompatActivity).setSupportActionBar(custom_toolbar)
         //(activity as AppCompatActivity).supportActionBar?.setBackgroundDrawable(mainColor)
         //activity?.actionBar?.setBackgroundDrawable(mainColor)

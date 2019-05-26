@@ -65,6 +65,7 @@ class ItemScreen: Fragment(){
         inflater.inflate(R.menu.actionbaritem_menu, menu)
         activity?.custom_toolbar?.setBackgroundColor(color!!)
         activity?.custom_toolbar?.setTitle(name)
+        activity?.window!!.statusBarColor = color!!
     }
 
 
