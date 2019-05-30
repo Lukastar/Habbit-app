@@ -117,6 +117,7 @@ class MainScreen: Fragment(){
         bundle.putInt("color", color)
         bundle.putString("name", name)
         bundle.putBoolean("tracking", tracking)
+        bundle.putString("date", binding.dateText.text.toString())
         itemFragment.arguments = bundle
         view?.findNavController()?.navigate(R.id.action_mainScreen_to_itemScreen, bundle)
 

@@ -12,6 +12,11 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
 import com.example.habbit.databinding.ItemScreenBinding
 import kotlinx.android.synthetic.main.activity_main.*
+import com.github.mikephil.charting.charts.LineChart
+import com.github.mikephil.charting.components.XAxis
+import com.github.mikephil.charting.data.LineData
+import com.github.mikephil.charting.data.LineDataSet
+import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
 import kotlinx.android.synthetic.main.clear_screen.view.*
 import java.lang.NullPointerException
 
@@ -22,6 +27,7 @@ class ItemScreen: Fragment(){
     private var id: Long? = 0
     private var name: String? = ""
     private var color: Int? = 0
+    private var currentDate: String = ""
     private var tracking: Boolean? = false
     private lateinit var bundle : Bundle
 
@@ -36,6 +42,7 @@ class ItemScreen: Fragment(){
         val application = requireNotNull(this.activity).application
         val base = HabitDatabase.getInstance(application)
         val dataSourceHabit = base!!.habitDAO
+        val dataSourceJoined = base!!.joinedDAO
 
         val editFragment = EditHabbitScreen()
         bundle = Bundle()
@@ -45,17 +52,44 @@ class ItemScreen: Fragment(){
         id = arguments?.getLong("id")
         name = arguments?.getString("name")
         color = arguments?.getInt("color")
+        currentDate = arguments!!.getString("date")
 
-        val itemScreenViewModelFactory = ItemScreenViewModelFactory(dataSourceHabit, application)
+        val itemScreenViewModelFactory = ItemScreenViewModelFactory(dataSourceJoined,dataSourceHabit, application)
         itemScreenViewModel = ViewModelProviders.of(this, itemScreenViewModelFactory).get(ItemScreenViewModel::class.java)
         binding.itemScreenViewModel = itemScreenViewModel
 
-        /* for future endeavors
-        val application = requireNotNull(this.activity).application
-        val base = HabitDatabase.getInstance(application)
-        val dataSourceHabit = base!!.habitDAO
-        dataSourceHabit.deleteFromBase(id!!)
-        */
+        itemScreenViewModel.getJoinedData(id!!, currentDate)
+
+        binding.creatingDate.text = "Started: " + itemScreenViewModel.firstEntry
+        binding.entryNumber.text = itemScreenViewModel.allEntries.toInt().toString()
+        binding.monthlyNumber.text = itemScreenViewModel.monthEntries.toString()
+        binding.avgNumber.text = "%.2f".format(itemScreenViewModel.monthAverage)
+
+
+        val lineChart : LineChart = binding.itemLinechart
+        val itemDataSet : LineDataSet = LineDataSet(itemScreenViewModel.lineArray, "Item")
+        itemDataSet.setDrawValues(true)
+        itemDataSet.valueTextSize = 15f
+        itemDataSet.lineWidth = 5f
+        itemDataSet.color = color!!
+        itemDataSet.enableDashedLine(12f, 12f, 0f)
+        itemDataSet.circleRadius = 8f
+        itemDataSet.setCircleColor(color!!)
+        val itemData: LineData = LineData(itemDataSet)
+        lineChart.data = itemData
+        lineChart.axisLeft.setDrawGridLines(false)
+        lineChart.axisRight.setDrawGridLines(false)
+        lineChart.xAxis.setDrawGridLines(false)
+        lineChart.legend.isEnabled = false
+        lineChart.description.isEnabled = false
+        lineChart.axisRight.isEnabled = false
+        lineChart.axisLeft.isEnabled = false
+        lineChart.xAxis.setLabelCount(itemScreenViewModel.monthCounterLineChart)
+        lineChart.xAxis.valueFormatter = IndexAxisValueFormatter(itemScreenViewModel.labelArray)
+        lineChart.xAxis.position = XAxis.XAxisPosition.BOTTOM
+        lineChart.xAxis.textSize = 12f
+        println("CCC")
+        lineChart.invalidate()
 
         return binding.root
     }
@@ -67,7 +101,6 @@ class ItemScreen: Fragment(){
         activity?.custom_toolbar?.setTitle(name)
         activity?.window!!.statusBarColor = color!!
     }
-
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
 

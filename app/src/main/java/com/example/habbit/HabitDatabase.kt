@@ -21,7 +21,7 @@ abstract class HabitDatabase: RoomDatabase(){
             if (this.INSTANCE == null) {
                 synchronized(HabitDatabase::class) {
                     this.INSTANCE =
-                        Room.databaseBuilder(context.applicationContext, HabitDatabase::class.java, "habbit").allowMainThreadQueries().build()
+                        Room.databaseBuilder(context.applicationContext, HabitDatabase::class.java, "habbit").allowMainThreadQueries().fallbackToDestructiveMigration().build()
                 }
             }
             return this.INSTANCE
