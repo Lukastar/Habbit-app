@@ -28,10 +28,6 @@ class AllStatViewModel (
     var labelArray = ArrayList <String>()
     private var whichMonth = ""
     private var monthCounter = 0
-    //private val monthHash : HashMap<String,Float> = hashMapOf("Jan" to 1f, "Feb" to 2f, "Mar" to 3f, "Apr" to 4f
-        //, "May" to 5f, "Jun" to 6f, "Jul" to 7f, "Aug" to 8f, "Sep" to 9f, "Oct" to 10f, "Nov" to 11f, "Dec" to 12f)
-    private var temporaryMonth: BigDecimal = BigDecimal(0)
-    private var temporaryYear : BigDecimal = BigDecimal(0)
     var counter = 0
 
     init {
@@ -42,7 +38,6 @@ class AllStatViewModel (
     }
 
     fun dateJoinedList(){
-        println(joinedList2)
         whichMonth = joinedList2[0].day.substring(3,5)
         labelArray.add(joinedList2[0].day.substring(3,5)+"."+joinedList2[0].day.substring(8,10))
         joinedList2.forEach {
@@ -51,20 +46,14 @@ class AllStatViewModel (
 
             }
             else {
-                println("Month" + it.day.substring(3))
                 labelArray.add(it.day.substring(3,5)+"."+it.day.substring(8,10))
                 lineArray.add(BarEntry(counter.toFloat(),monthCounter.toFloat()))
-                println("Else Entry = "+ counter.toString() + " "+ monthCounter)
                 whichMonth = it.day.substring(3,5)
                 counter++
                 monthCounter = 1
             }
         }
         lineArray.add(BarEntry(counter.toFloat(),monthCounter.toFloat()))
-        lineArray.forEach { println(it) }
-        labelArray.forEach { println(it) }
-
-
     }
 
     fun sortJoinedList()
